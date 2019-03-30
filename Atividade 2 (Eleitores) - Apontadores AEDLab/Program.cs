@@ -10,6 +10,7 @@ namespace Atividade_2__Eleitores____Apontadores_AEDLab
     {
         static void Main(string[] args)
         {
+
         }
     }
 }
