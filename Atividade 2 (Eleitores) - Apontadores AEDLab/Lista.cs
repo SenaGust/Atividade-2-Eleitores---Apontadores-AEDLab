@@ -10,15 +10,21 @@ namespace Atividade_2__Eleitores____Apontadores_AEDLab
     {
         public Elemento Primeiro { get; set; }
         public Elemento Ultimo { get; set; }
+        public Elemento novo { get; set; }
 
         public Lista() //Lorena
         {
-
+            
         }
 
         public void Inserir(Eleitores dado) //Lorena
         {
             // insira elementos ao final da lista
+            Elemento novo_eleitor = new Elemento(dado);
+            this.novo = novo_eleitor;
+            this.Primeiro.Proximo = novo;
+            this.Ultimo = novo;
+            
 
         }
 
@@ -75,6 +81,11 @@ namespace Atividade_2__Eleitores____Apontadores_AEDLab
             }
 
             return EleitoresPorSexo;
+        }
+
+        public bool Vazia()
+        {
+            return (this.Ultimo == this.Primeiro);
         }
     }
 }
