@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace Atividade_2__Eleitores____Apontadores_AEDLab
 {
     class Lista
     {
-        public Elemento Primeiro { get; set; }
-        public Elemento Ultimo { get; set; }
-        public Elemento novo { get; set; }
-
+        public Apontadores Primeiro { get; set; }
+        public Apontadores Ultimo { get; set; }
+        
         public Lista() //Lorena
         {
             
@@ -19,12 +19,13 @@ namespace Atividade_2__Eleitores____Apontadores_AEDLab
 
         public void Inserir(Eleitores dado) //Lorena
         {
+            this.Primeiro = null;
             // insira elementos ao final da lista
-            Elemento novo_eleitor = new Elemento(dado);
-            this.novo = novo_eleitor;
-            this.Primeiro.Proximo = novo;
-            this.Ultimo = novo;
+            Apontadores novo_eleitor = new Apontadores(dado);
             
+            this.Ultimo.Proximo = novo_eleitor;
+            novo_eleitor = this.Ultimo;
+            this.Ultimo = novo_eleitor;
 
         }
 
@@ -33,7 +34,7 @@ namespace Atividade_2__Eleitores____Apontadores_AEDLab
             // Este método deve receber como
             // parâmetro o título da pessoa que deve ser excluída;
 
-            Elemento aux = Primeiro.Proximo;
+            Apontadores aux = Primeiro.Proximo;
 
             while (aux != null && !aux.Proximo.MeuDado.Equals(Titulo))
             {
@@ -48,11 +49,40 @@ namespace Atividade_2__Eleitores____Apontadores_AEDLab
         public int CarregarDados (string nomeArquivo) //Lorena
         {
             int cont = 0;
-            // Este método deve receber como parâmetro o nome de um arquivo texto e
-            // carregar (ler) os dados constantes deste arquivo para a lista. O retorno do método é a
-            // quantidade de registros lidos.
+            Lista lista = new Lista();
             
-            return -1;
+            if (!File.Exists(nomeArquivo))
+            {
+                StreamWriter criar = new StreamWriter(nomeArquivo);
+                criar.Close();
+            }
+
+            StreamReader arq = new StreamReader(nomeArquivo);
+            string linha;
+            string[] vetoraux;
+
+
+            while (!arq.EndOfStream)
+            {
+                cont++;
+                linha = arq.ReadLine();
+                vetoraux = linha.Split('-');
+                if (vetoraux.Length == 5)
+                {
+                    Eleitores eleitores = new Eleitores();
+                    eleitores.Nome = vetoraux[0];
+                    eleitores.Sexo = Convert.ToChar(vetoraux[1]);
+                    eleitores.Titulo_Eleitor = vetoraux[2];
+                    eleitores.Zona_Eleitoral = int.Parse(vetoraux[3]);
+                    eleitores.Secao_Eleitoral = int.Parse(vetoraux[4]);
+
+                    lista.Inserir(eleitores);
+                }
+            }
+
+            arq.Close();
+
+            return cont;
         }
 
         public Lista EleitoresPorSecao(int zona, int secao) //Lorena
@@ -70,7 +100,7 @@ namespace Atividade_2__Eleitores____Apontadores_AEDLab
             // formada exclusivamente por pessoas do sexo informado.
 
             Lista EleitoresPorSexo = new Lista();
-            Elemento aux = Primeiro.Proximo;
+            Apontadores aux = Primeiro.Proximo;
 
             while (aux != null)
             {

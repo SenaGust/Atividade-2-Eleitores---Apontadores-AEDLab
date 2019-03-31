@@ -19,49 +19,13 @@ namespace Atividade_2__Eleitores____Apontadores_AEDLab
     {
         static void Main(string[] args)
         {
-            Leitura_de_arquivos();
+            Lista list = new Lista();
+            string path = "eleitores.txt";
+            Console.WriteLine(list.CarregarDados(path));
             Console.ReadKey();
         }
 
-        #region Leitura_de_arquivos (Lorena)
-        static void Leitura_de_arquivos() 
-        {
-            Lista lista = new Lista();
-            string path = "eleitores.txt";
-            if(!File.Exists(path))
-            {
-                StreamWriter criar = new StreamWriter(path);
-                criar.Close();
-            }
-
-            StreamReader arq = new StreamReader(path);
-            string linha;
-            string[] vetoraux;
-           
-
-            while(!arq.EndOfStream)
-            {
-                linha = arq.ReadLine();
-                vetoraux = linha.Split('-');
-                if(vetoraux.Length==5)
-                {
-                    Eleitores eleitores = new Eleitores();
-                    eleitores.Nome = vetoraux[0];
-                    eleitores.Sexo = Convert.ToChar(vetoraux[1]);
-                    eleitores.Titulo_Eleitor = vetoraux[2];
-                    eleitores.Zona_Eleitoral = int.Parse(vetoraux[3]);
-                    eleitores.Secao_Eleitoral = int.Parse(vetoraux[4]);
-
-                    lista.Inserir(eleitores);
-                }
-            }
-
-            arq.Close();
-
-            
-
-        }
-        #endregion
+        
 
         #region Eliminar_Eleitor (Gustavo)
         static void Eliminar_Eleitor()
