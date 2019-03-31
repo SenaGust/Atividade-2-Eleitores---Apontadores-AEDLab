@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Atividade_2__Eleitores____Apontadores_AEDLab
 {
-    class Lista //Lorena
+    class Eleitores //Gustavo
     {
     }
 }
