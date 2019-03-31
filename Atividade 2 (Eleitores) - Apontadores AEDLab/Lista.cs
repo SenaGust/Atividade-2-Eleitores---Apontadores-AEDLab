@@ -97,9 +97,20 @@ namespace Atividade_2__Eleitores____Apontadores_AEDLab
         {
             // localiza, na lista de eleitores, aqueles que pertençam à zona e seção especificados. 
             // Este método retorna uma lista com os eleitores encontrados.
+            Lista epzes = new Lista(); //criando a lista que vai abrigar as pessoas daquela zona e seção
+            Elementos auxiliar = Primeiro.Proximo;
 
+            while(epzes!=null)
+            {
+                if(auxiliar.MeuDado.Equals(zona,secao))
+                {
+                    epzes.Inserir(auxiliar.MeuDado);
+                }
 
-            return null;
+                auxiliar = auxiliar.Proximo;
+            }
+
+            return epzes;
         }
 
         public Lista EleitoresPorSexo(char sexo) //Gustavo
@@ -138,7 +149,7 @@ namespace Atividade_2__Eleitores____Apontadores_AEDLab
                 atual = atual.Proximo;
                    
             }
-            return auxImpressao.ToString();
+            return "Teste" + auxImpressao.ToString();
         }
     }
 }
