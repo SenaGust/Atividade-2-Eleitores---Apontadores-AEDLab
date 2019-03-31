@@ -41,6 +41,7 @@ namespace Atividade_2__Eleitores____Apontadores_AEDLab
 
         public int CarregarDados (string nomeArquivo) //Lorena
         {
+            int cont = 0;
             // Este método deve receber como parâmetro o nome de um arquivo texto e
             // carregar (ler) os dados constantes deste arquivo para a lista. O retorno do método é a
             // quantidade de registros lidos.

@@ -8,11 +8,11 @@ namespace Atividade_2__Eleitores____Apontadores_AEDLab
 {
     class Eleitores //Gustavo
     {
-        public string Nome { get; private set; }
-        public char Sexo { get; private set; }
-        public string Titulo_Eleitor { get; private set; }
-        public int Zona_Eleitoral { get; private set; }
-        public int Secao_Eleitoral { get; private set; }
+        public string Nome { get; set; }
+        public char Sexo { get;  set; }
+        public string Titulo_Eleitor { get;  set; }
+        public int Zona_Eleitoral { get;  set; }
+        public int Secao_Eleitoral { get;  set; }
 
         public Eleitores(string Nome, char Sexo, string Titulo_Eleitor, int Zona_Eleitoral, int Secao_Eleitoral)
         {
