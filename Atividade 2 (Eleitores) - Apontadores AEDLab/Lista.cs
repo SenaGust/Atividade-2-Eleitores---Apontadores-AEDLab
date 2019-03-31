@@ -9,8 +9,8 @@ namespace Atividade_2__Eleitores____Apontadores_AEDLab
 {
     class Lista
     {
-        public Apontadores Primeiro { get; set; }
-        public Apontadores Ultimo { get; set; }
+        public Elementos Primeiro { get; set; }
+        public Elementos Ultimo { get; set; }
 
         public Lista() //Lorena
         {
@@ -22,7 +22,7 @@ namespace Atividade_2__Eleitores____Apontadores_AEDLab
         {
 
             // insira elementos ao final da lista
-            Apontadores novo_eleitor = new Apontadores(dado);
+            Elementos novo_eleitor = new Elementos(dado);
             if (this.Vazia())
             {
                 this.Ultimo = novo_eleitor;
@@ -42,7 +42,7 @@ namespace Atividade_2__Eleitores____Apontadores_AEDLab
             // Este método deve receber como
             // parâmetro o título da pessoa que deve ser excluída;
 
-            Apontadores aux = Primeiro.Proximo;
+            Elementos aux = Primeiro.Proximo;
 
             while (aux != null && !aux.Proximo.MeuDado.Equals(Titulo))
             {
@@ -108,7 +108,7 @@ namespace Atividade_2__Eleitores____Apontadores_AEDLab
             // formada exclusivamente por pessoas do sexo informado.
 
             Lista EleitoresPorSexo = new Lista();
-            Apontadores aux = Primeiro.Proximo;
+            Elementos aux = Primeiro.Proximo;
 
             while (aux != null)
             {
@@ -131,7 +131,7 @@ namespace Atividade_2__Eleitores____Apontadores_AEDLab
             if (this.Vazia()) return null;
 
             StringBuilder auxImpressao = new StringBuilder();
-            Apontadores atual = this.Primeiro.Proximo;
+            Elementos atual = this.Primeiro.Proximo;
             while(atual!=null)
             {
                 auxImpressao.AppendLine(atual.MeuDado.Nome);

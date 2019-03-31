@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace Atividade_2__Eleitores____Apontadores_AEDLab
 {
-    class Apontadores
+    class Elementos
     {
         public Eleitores MeuDado { get; set; }
-        public Apontadores Proximo { get; set; }
+        public Elementos Proximo { get; set; }
 
-        public Apontadores(Eleitores dado)
+        public Elementos(Eleitores dado)
         {
             MeuDado = dado;
         }
