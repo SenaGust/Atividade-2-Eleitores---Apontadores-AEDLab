@@ -11,21 +11,29 @@ namespace Atividade_2__Eleitores____Apontadores_AEDLab
     {
         public Apontadores Primeiro { get; set; }
         public Apontadores Ultimo { get; set; }
-        
+
         public Lista() //Lorena
         {
-            
+            this.Primeiro = null;
+            this.Ultimo = null;
         }
 
         public void Inserir(Eleitores dado) //Lorena
         {
-            this.Primeiro = null;
+
             // insira elementos ao final da lista
             Apontadores novo_eleitor = new Apontadores(dado);
-            
-            this.Ultimo.Proximo = novo_eleitor;
-            novo_eleitor = this.Ultimo;
-            this.Ultimo = novo_eleitor;
+            if (this.Vazia())
+            {
+                this.Ultimo = novo_eleitor;
+                this.Ultimo.Proximo = null;
+            }
+            else
+            {
+                this.Ultimo.Proximo = novo_eleitor;
+                novo_eleitor = this.Ultimo;
+                this.Ultimo = novo_eleitor;
+            }
 
         }
 
@@ -41,16 +49,16 @@ namespace Atividade_2__Eleitores____Apontadores_AEDLab
                 aux = aux.Proximo;
             }
 
-            
+
 
             return aux.MeuDado;
         }
 
-        public int CarregarDados (string nomeArquivo) //Lorena
+        public int CarregarDados(string nomeArquivo) //Lorena
         {
             int cont = 0;
             Lista lista = new Lista();
-            
+
             if (!File.Exists(nomeArquivo))
             {
                 StreamWriter criar = new StreamWriter(nomeArquivo);
@@ -92,7 +100,7 @@ namespace Atividade_2__Eleitores____Apontadores_AEDLab
 
 
             return null;
-        }   
+        }
 
         public Lista EleitoresPorSexo(char sexo) //Gustavo
         {
@@ -116,6 +124,21 @@ namespace Atividade_2__Eleitores____Apontadores_AEDLab
         public bool Vazia()
         {
             return (this.Ultimo == this.Primeiro);
+        }
+
+        public override string ToString()
+        {
+            if (this.Vazia()) return null;
+
+            StringBuilder auxImpressao = new StringBuilder();
+            Apontadores atual = this.Primeiro.Proximo;
+            while(atual!=null)
+            {
+                auxImpressao.AppendLine(atual.MeuDado.Nome);
+                atual = atual.Proximo;
+                   
+            }
+            return auxImpressao.ToString();
         }
     }
 }

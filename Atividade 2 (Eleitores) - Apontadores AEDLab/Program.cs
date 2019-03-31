@@ -21,7 +21,8 @@ namespace Atividade_2__Eleitores____Apontadores_AEDLab
         {
             Lista list = new Lista();
             string path = "eleitores.txt";
-            Console.WriteLine(list.CarregarDados(path));
+            list.CarregarDados(path);
+            Console.WriteLine(list.ToString());
             Console.ReadKey();
         }
 
