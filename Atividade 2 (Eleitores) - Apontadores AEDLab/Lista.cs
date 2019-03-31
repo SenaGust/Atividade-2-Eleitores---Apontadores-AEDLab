@@ -8,6 +8,9 @@ namespace Atividade_2__Eleitores____Apontadores_AEDLab
 {
     class Lista
     {
+        public Elemento Primeiro { get; set; }
+        public Elemento Ultimo { get; set; }
+
         public Lista() //Lorena
         {
 
@@ -24,7 +27,16 @@ namespace Atividade_2__Eleitores____Apontadores_AEDLab
             // Este método deve receber como
             // parâmetro o título da pessoa que deve ser excluída;
 
-            return null;
+            Elemento aux = Primeiro.Proximo;
+
+            while (aux != null && !aux.Proximo.MeuDado.Equals(Titulo))
+            {
+                aux = aux.Proximo;
+            }
+
+            
+
+            return aux.MeuDado;
         }
 
         public int CarregarDados (string nomeArquivo) //Lorena
@@ -41,6 +53,7 @@ namespace Atividade_2__Eleitores____Apontadores_AEDLab
             // localiza, na lista de eleitores, aqueles que pertençam à zona e seção especificados. 
             // Este método retorna uma lista com os eleitores encontrados.
 
+
             return null;
         }   
 
@@ -49,7 +62,18 @@ namespace Atividade_2__Eleitores____Apontadores_AEDLab
             // Este método recebe como parâmetro um caractere indicando o sexo(masculino ou feminino) e retorna a lista de eleitores
             // formada exclusivamente por pessoas do sexo informado.
 
-            return null;
+            Lista EleitoresPorSexo = new Lista();
+            Elemento aux = Primeiro.Proximo;
+
+            while (aux != null)
+            {
+                if (aux.MeuDado.Equals(sexo))
+                    EleitoresPorSexo.Inserir(aux.MeuDado);
+
+                aux = aux.Proximo;
+            }
+
+            return EleitoresPorSexo;
         }
     }
 }
