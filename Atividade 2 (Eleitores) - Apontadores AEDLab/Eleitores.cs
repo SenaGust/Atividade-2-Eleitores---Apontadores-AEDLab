@@ -23,6 +23,11 @@ namespace Atividade_2__Eleitores____Apontadores_AEDLab
             this.Secao_Eleitoral = Secao_Eleitoral;
         }
 
+        public override string ToString()
+        {
+            return ("Nome: "+ Nome + "\tSexo: " + Sexo + "\tTítulo de Eleitor: " + Titulo_Eleitor + "\tZona: " + Zona_Eleitoral + "\tSeção: " + Secao_Eleitoral + ".");
+        }
+
         public bool Equals(char sexo)
         {
             return (this.Sexo == sexo);
