@@ -12,29 +12,34 @@ namespace Atividade_2__Eleitores____Apontadores_AEDLab
         public Elementos Primeiro { get; set; }
         public Elementos Ultimo { get; set; }
 
+        #region Construtor
         public Lista() //Lorena
         {
-            this.Primeiro = null;
-            this.Ultimo = null;
+            this.Primeiro = new Elementos(null);
+            this.Ultimo = this.Primeiro;
         }
+        #endregion
 
+        #region Métodos
         public void Inserir(Eleitores dado) //Lorena
         {
-
             // insira elementos ao final da lista
             Elementos novo_eleitor = new Elementos(dado);
-            if (this.Vazia())
-            {
-                this.Ultimo = novo_eleitor;
-                this.Ultimo.Proximo = null;
-            }
-            else
-            {
-                this.Ultimo.Proximo = novo_eleitor;
-                novo_eleitor = this.Ultimo;
-                this.Ultimo = novo_eleitor;
-            }
 
+            //if (this.Vazia())
+            //{
+            //    this.Ultimo = novo_eleitor;
+            //    this.Ultimo.Proximo = null;
+            //}
+            //else
+            //{
+            //    this.Ultimo.Proximo = novo_eleitor;
+            //    novo_eleitor = this.Ultimo;
+            //    this.Ultimo = novo_eleitor;
+            //}
+
+            Ultimo.Proximo = novo_eleitor;
+            Ultimo = Ultimo.Proximo;
         }
 
         public Eleitores Retirar(string Titulo) //Gustavo
@@ -42,53 +47,64 @@ namespace Atividade_2__Eleitores____Apontadores_AEDLab
             // Este método deve receber como
             // parâmetro o título da pessoa que deve ser excluída;
 
-            Elementos aux = Primeiro.Proximo;
+            if (this.Vazia())
+                return null;
 
-            while (aux != null && !aux.Proximo.MeuDado.Equals(Titulo))
-            {
+            Elementos aux = this.Primeiro;
+
+            while ((aux.Proximo!=null)&&(!aux.Proximo.MeuDado.Equals(Titulo)))
                 aux = aux.Proximo;
+
+            if (aux.Proximo == null)
+            {
+                return null;
             }
+            else
+            {
+                Elementos Retirar = aux.Proximo;
+                aux.Proximo = Retirar.Proximo;
+                if (Retirar == this.Ultimo)
+                    this.Ultimo = aux;
+                else
+                    Retirar.Proximo = null;
 
-
-
-            return aux.MeuDado;
+                return Retirar.MeuDado;
+            }
         }
 
         public int CarregarDados(string nomeArquivo) //Lorena
         {
             int cont = 0;
-            Lista lista = new Lista();
 
             if (!File.Exists(nomeArquivo))
             {
-                StreamWriter criar = new StreamWriter(nomeArquivo);
-                criar.Close();
+                Console.WriteLine("O arquivo " + nomeArquivo + " não existe.");
+                return -1;
             }
 
-            StreamReader arq = new StreamReader(nomeArquivo);
+            StreamReader arquivoLeitura = new StreamReader(nomeArquivo);
             string linha;
-            string[] vetoraux;
+            string[] vetorAux;
 
-
-            while (!arq.EndOfStream)
+            while (!arquivoLeitura.EndOfStream)
             {
                 cont++;
-                linha = arq.ReadLine();
-                vetoraux = linha.Split('-');
-                if (vetoraux.Length == 5)
+                linha = arquivoLeitura.ReadLine();
+                vetorAux = linha.Split('-');
+                if (vetorAux.Length == 5)
                 {
-                    Eleitores eleitores = new Eleitores();
-                    eleitores.Nome = vetoraux[0];
-                    eleitores.Sexo = Convert.ToChar(vetoraux[1]);
-                    eleitores.Titulo_Eleitor = vetoraux[2];
-                    eleitores.Zona_Eleitoral = int.Parse(vetoraux[3]);
-                    eleitores.Secao_Eleitoral = int.Parse(vetoraux[4]);
+                    string Nome = vetorAux[0];
+                    char Sexo = Convert.ToChar(vetorAux[1]);
+                    string Titulo_Eleitor = vetorAux[2];
+                    int Zona_Eleitoral = int.Parse(vetorAux[3]);
+                    int Secao_Eleitoral = int.Parse(vetorAux[4]);
 
-                    lista.Inserir(eleitores);
+                    Eleitores eleitores = new Eleitores(Nome, Sexo, Titulo_Eleitor, Zona_Eleitoral, Secao_Eleitoral);
+                    this.Inserir(eleitores);
                 }
             }
 
-            arq.Close();
+            arquivoLeitura.Close();
 
             return cont;
         }
@@ -100,9 +116,9 @@ namespace Atividade_2__Eleitores____Apontadores_AEDLab
             Lista epzes = new Lista(); //criando a lista que vai abrigar as pessoas daquela zona e seção
             Elementos auxiliar = Primeiro.Proximo;
 
-            while(epzes!=null)
+            while (auxiliar != null)
             {
-                if(auxiliar.MeuDado.Equals(zona,secao))
+                if (auxiliar.MeuDado.Equals(zona, secao))
                 {
                     epzes.Inserir(auxiliar.MeuDado);
                 }
@@ -118,6 +134,7 @@ namespace Atividade_2__Eleitores____Apontadores_AEDLab
             // Este método recebe como parâmetro um caractere indicando o sexo(masculino ou feminino) e retorna a lista de eleitores
             // formada exclusivamente por pessoas do sexo informado.
 
+            sexo = char.ToUpper(sexo);
             Lista EleitoresPorSexo = new Lista();
             Elementos aux = Primeiro.Proximo;
 
@@ -139,17 +156,18 @@ namespace Atividade_2__Eleitores____Apontadores_AEDLab
 
         public override string ToString()
         {
-            if (this.Vazia()) return null;
+            if (this.Vazia()) return "Impressão\nLista está vazia";
 
             StringBuilder auxImpressao = new StringBuilder();
             Elementos atual = this.Primeiro.Proximo;
-            while(atual!=null)
+            while (atual != null)
             {
-                auxImpressao.AppendLine(atual.MeuDado.Nome);
+                auxImpressao.AppendLine(atual.MeuDado.ToString());
                 atual = atual.Proximo;
-                   
             }
-            return "Teste" + auxImpressao.ToString();
+
+            return "Impressão\n" + auxImpressao.ToString();
         }
+        #endregion
     }
 }
